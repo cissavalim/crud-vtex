@@ -1,7 +1,7 @@
 # Cadastro de Usuários
 
 <p>CRUD de usuários e produtos.</p>
-<p>Feito por [![Carolina Vasconcelos](https://github.com/carolvasc)]. Adaptado por [![Cecilia Valim](https://github.com/cissavalim)]</p>
+<p>Feito por ![Carolina Vasconcelos](https://github.com/carolvasc). Adaptado por ![Cecilia Valim](https://github.com/cissavalim)</p>
 
 ## Instalação
 
