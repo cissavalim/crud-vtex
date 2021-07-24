@@ -15,58 +15,58 @@ export default (props) => (
                   value={props.name}
                   onChange={(e) => props.updateField(e)}
                   onKeyPress={props.handleEnterPress}
-                  placeholder="Digite o nome do usuário"
+                  placeholder="Digite o nome do produto"
                />
             </div>
          </div>
 
          <div className="col-12 col-md-6">
             <div className="form-group">
-               <label>E-mail</label>
+               <label>Descrição</label>
                <input
-                  type="email"
-                  name="email"
-                  id="email"
+                  type="type"
+                  name="description"
+                  id="description"
                   className="form-control"
                   autoComplete="off"
-                  value={props.email}
+                  value={props.description}
                   onChange={(e) => props.updateField(e)}
                   onKeyPress={props.handleEnterPress}
-                  placeholder="Digite o e-mail do usuário"
+                  placeholder="Digite a descrição"
                />
             </div>
          </div>
 
          <div className="col-12 col-md-6">
             <div className="form-group">
-               <label>Telefone</label>
+               <label>Categoria</label>
                <input
-                  type="tel"
-                  name="telephone"
-                  id="telephone"
+                  type="text"
+                  name="category"
+                  id="category"
                   className="form-control"
                   autoComplete="off"
-                  value={props.telephone}
+                  value={props.category}
                   onChange={(e) => props.updateField(e)}
                   onKeyPress={props.handleEnterPress}
-                  placeholder="Digite o número de telefone"
+                  placeholder="Digite a categoria"
                />
             </div>
          </div>
 
          <div className="col-12 col-md-6">
             <div className="form-group">
-               <label>Senha</label>
+               <label>Quatidade</label>
                <input
-                  type="password"
-                  name="password"
-                  id="password"
+                  type="number"
+                  name="quantity"
+                  id="quantity"
                   className="form-control"
                   autoComplete="off"
-                  value={props.password}
+                  value={props.quantity}
                   onChange={(e) => props.updateField(e)}
                   onKeyPress={props.handleEnterPress}
-                  placeholder="Digite a senha"
+                  placeholder="Digite a quantidade"
                />
             </div>
          </div>
@@ -79,7 +79,7 @@ export default (props) => (
             <button
                id="save"
                className="btn outlined"
-               onClick={props.localStorage}
+               onCLick={props.localStorage}
                onClick={props.save}
             >
                <i className="fa fa-save mr-1"></i> Salvar

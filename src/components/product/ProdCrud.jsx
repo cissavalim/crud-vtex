@@ -1,7 +1,7 @@
 import React from "react";
 import Main from "../template/Main";
-import Userform from "./UserForm";
-import UserTable from "./UserTable";
+import ProdForm from "./ProdForm";
+import ProdTable from "./ProdTable";
 import axios from "axios";
 
 import {
@@ -10,24 +10,24 @@ import {
 } from "react-notifications";
 
 const headerProps = {
-   icon: "users",
-   title: "Usuários",
-   subtitle: "Cadastro de Usuários",
+   icon: "shopping-cart",
+   title: "Produtos",
+   subtitle: "Cadastro de Produtos",
 };
 
-const baseUrl = "http://localhost:3001/users";
+const baseUrl = "http://localhost:3001/products";
 
 const initialState = {
-   user: {
+   prod: {
       name: "",
-      email: "",
-      telephone: "",
-      password: "",
+      category: "",
+      description: "",
+      quantity: "",
    },
    list: [],
 };
 
-export default class UserCrud extends React.Component {
+export default class ProdCrud extends React.Component {
    constructor() {
       super();
 
@@ -56,60 +56,65 @@ export default class UserCrud extends React.Component {
    }
 
    clear() {
-      this.setState({ user: initialState.user });
+      this.setState({ prod: initialState.prod });
    }
 
    save() {
-      const user = this.state.user;
-      const method = user.id ? "put" : "post";
-      const url = user.id ? `${baseUrl}/${user.id}` : baseUrl;
+      const prod = this.state.prod;
+      const method = prod.id ? "put" : "post";
+      const url = prod.id ? `${baseUrl}/${prod.id}` : baseUrl;
 
-      if (user.name === "" || user.email === "") {
+      if (
+         prod.name === "" ||
+         prod.description === "" ||
+         prod.quantity === "" ||
+         prod.category === ""
+      ) {
          NotificationManager.warning(
             "Campos obrigatórios",
             "Preencha todos os campos"
          );
       } else {
-         axios[method](url, user).then((response) => {
+         axios[method](url, prod).then((response) => {
             const list = this.getUpdatedList(response.data);
-            this.setState({ user: initialState.user, list });
+            this.setState({ prod: initialState.prod, list });
             if (method === "post")
                NotificationManager.success(
-                  "Usuário criado com sucesso",
-                  "Criar Usuário"
+                  "Produto criado com sucesso",
+                  "Criar Produto"
                );
             else
                NotificationManager.success(
-                  "Usuário alterado com sucesso",
-                  "Editar Usuário"
+                  "Produto alterado com sucesso",
+                  "Editar Produto"
                );
          });
       }
    }
 
-   getUpdatedList(user, add = true) {
-      const list = this.state.list.filter((u) => u.id !== user.id);
-      if (add) list.unshift(user);
+   getUpdatedList(prod, add = true) {
+      const list = this.state.list.filter((u) => u.id !== prod.id);
+      if (add) list.unshift(prod);
       return list;
    }
 
    updateField(event) {
-      const user = { ...this.state.user };
-      user[event.target.name] = event.target.value;
-      this.setState({ user });
+      const prod = { ...this.state.prod };
+      prod[event.target.name] = event.target.value;
+      this.setState({ prod });
    }
 
-   load(user) {
-      this.setState({ user });
+   load(prod) {
+      this.setState({ prod });
    }
 
-   remove(user) {
-      axios.delete(`${baseUrl}/${user.id}`).then((response) => {
-         const list = this.getUpdatedList(user, false);
+   remove(prod) {
+      axios.delete(`${baseUrl}/${prod.id}`).then((response) => {
+         const list = this.getUpdatedList(prod, false);
          this.setState({ list });
          NotificationManager.success(
-            "Usuário excluído com sucesso",
-            "Excluir Usuário"
+            "Produto excluído com sucesso",
+            "Excluir produto"
          );
       });
    }
@@ -117,16 +122,17 @@ export default class UserCrud extends React.Component {
    render() {
       return (
          <Main {...headerProps}>
-            <Userform
-               name={this.state.user.name}
-               email={this.state.user.email}
-               telephone={this.state.user.telephone}
+            <ProdForm
+               name={this.state.prod.name}
+               description={this.state.prod.description}
+               category={this.state.prod.category}
+               quantity={this.state.prod.quantity}
                clear={this.clear}
                save={this.save}
                updateField={this.updateField}
                handleEnterPress={this.handleEnterPress}
             />
-            <UserTable
+            <ProdTable
                list={this.state.list}
                load={this.load}
                remove={this.remove}
@@ -136,18 +142,20 @@ export default class UserCrud extends React.Component {
    }
 
    localStorage() {
-      let name = this.state.user.name;
-      let email = this.state.user.email;
-      let telephone = this.state.user.telephone;
+      let name = this.state.prod.name;
+      let category = this.state.prod.category;
+      let description = this.state.prod.description;
+      let quantity = this.state.prod.quantity;
 
       let data = {
          name,
-         email,
-         telephone,
+         category,
+         description,
+         quantity,
       };
 
       let convertData = JSON.stringify(data);
 
-      localStorage.setItem("client", convertData);
+      localStorage.setItem("product", convertData);
    }
 }

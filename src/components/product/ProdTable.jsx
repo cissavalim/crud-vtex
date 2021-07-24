@@ -9,24 +9,26 @@ export default (props) => {
             <tr>
                <th>#</th>
                <th>Nome</th>
-               <th>E-mail</th>
-               <th>Telefone</th>
+               <th>Descrição</th>
+               <th>Categoria</th>
+               <th>Quantidade</th>
                <th>Ações</th>
             </tr>
          </thead>
          <tbody>
-            {lista.map((user) => {
+            {lista.map((prod) => {
                return (
-                  <tr key={user.id}>
-                     <td>{user.id}</td>
-                     <td>{user.name}</td>
-                     <td>{user.email}</td>
-                     <td>{user.telephone}</td>
+                  <tr key={prod.id}>
+                     <td>{prod.id}</td>
+                     <td>{prod.name}</td>
+                     <td>{prod.description}</td>
+                     <td>{prod.category}</td>
+                     <td>{prod.quantity}</td>
                      <td>
                         <button
                            className="btn outlined"
                            title="Editar"
-                           onClick={() => props.load(user)}
+                           onClick={() => props.load(prod)}
                         >
                            <i className="fa fa-pencil"></i>
                         </button>
@@ -34,7 +36,7 @@ export default (props) => {
                            className="btn filled ml-2"
                            id="btn-excluir"
                            title="Excluir"
-                           onClick={() => props.remove(user)}
+                           onClick={() => props.remove(prod)}
                         >
                            <i className="fa fa-trash"></i>
                         </button>
